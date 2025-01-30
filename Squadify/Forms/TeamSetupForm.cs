@@ -46,10 +46,13 @@ namespace Squadify.Forms
 
         private void buttonGenerate_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrEmpty(textBoxTeams.Text)) return;
+            if (!int.TryParse(textBoxTeams.Text, out var teamCount)) return;
+
             #region sample data
             var players = PlayerDataUtil.GetPlayerData();
             var lobby = new Lobby(players);
-            var teams = lobby.Distribute(int.Parse(textBoxTeams.Text));
+            var teams = lobby.Distribute(teamCount);
             #endregion
 
             using var frm = new SquadForm(teams) { StartPosition = FormStartPosition.CenterParent };
