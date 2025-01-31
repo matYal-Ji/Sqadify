@@ -2,20 +2,20 @@
 {
     public class Lobby
     {
-        public List<Player> Players { get; set; }
+        public IEnumerable<IPlayer> Players { get; set; }
         public Dictionary<string, int> SkillCount { get; set; } = new Dictionary<string, int>();
-        public Lobby(List<Player> players)
+        public Lobby(IEnumerable<IPlayer> players)
         {
             Players = players;
         }
-        public List<Team> Distribute(int numberOfTeams)
+        public List<Team> Distribute(int numberOfTeams/*, List<string> skills*/)
         {
             //populate lobby skills
-            foreach (Player player in Players)
+            foreach (IPlayer player in Players)
                 foreach (string skill in player.Skills)
                 {
-                    if (!SkillCount.ContainsKey(skill)) SkillCount[skill] = 1;
-                    else SkillCount[skill]++;
+                    if (!SkillCount.TryGetValue(skill, out int value)) SkillCount[skill] = 1;
+                    else SkillCount[skill] = ++value;
                 }
             //initiate teams with skills
             var teams = new List<Team>(Enumerable.Range(1, numberOfTeams).Select(i => new Team()
@@ -24,7 +24,7 @@
                 SkillCount = this.SkillCount.ToDictionary(item => item.Key, item => 0)
             }));
             //pick a player
-            foreach (Player player in Players)
+            foreach (IPlayer player in Players)
             {
                 //pick a team
                 bool playerAddedInATeam = false;
@@ -47,6 +47,7 @@
                         break;
                     }
                 }
+                //add the player in a team with lest number of players
                 if (!playerAddedInATeam)
                 {
                     var teamWithLeastPlayers = teams[0];
@@ -59,7 +60,7 @@
             }
             return teams;
         }
-        void AddPlayer(Team team, Player player)
+        void AddPlayer(Team team, IPlayer player)
         {
             team.Players.Add(player);
             foreach(var skill in player.Skills)

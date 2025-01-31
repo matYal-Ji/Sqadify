@@ -9,7 +9,7 @@ namespace SquadsMaster.Models
     public class Team
     {
         public string Name { get; set; }
-        public List<Player> Players { get; set; } = [];
+        public List<IPlayer> Players { get; set; } = [];
         public Dictionary<string, int> SkillCount { get; set; } = [];
     }
 }
