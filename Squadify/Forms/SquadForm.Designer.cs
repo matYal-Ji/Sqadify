@@ -1,4 +1,8 @@
-﻿namespace Squadify.Forms
+﻿using static System.Net.Mime.MediaTypeNames;
+using System.Windows.Forms;
+using System.Xml.Linq;
+
+namespace Squadify.Forms
 {
     partial class SquadForm
     {
@@ -28,49 +32,68 @@
         /// </summary>
         private void InitializeComponent()
         {
-            flowLayoutPanel1 = new FlowLayoutPanel();
+            tableLayoutPanel1 = new TableLayoutPanel();
+            teamsTabControl = new TabControl();
             buttonSave = new Button();
+            tableLayoutPanel1.SuspendLayout();
             SuspendLayout();
             // 
-            // flowLayoutPanel1
+            // tableLayoutPanel1
             // 
-            flowLayoutPanel1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            flowLayoutPanel1.AutoScroll = true;
-            flowLayoutPanel1.Location = new Point(7, 46);
-            flowLayoutPanel1.Name = "flowLayoutPanel1";
-            flowLayoutPanel1.Size = new Size(958, 337);
-            flowLayoutPanel1.TabIndex = 0;
-            flowLayoutPanel1.WrapContents = false;
+            tableLayoutPanel1.ColumnCount = 1;
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 22F));
+            tableLayoutPanel1.Controls.Add(teamsTabControl, 0, 1);
+            tableLayoutPanel1.Controls.Add(buttonSave, 0, 0);
+            tableLayoutPanel1.Dock = DockStyle.Fill;
+            tableLayoutPanel1.Location = new Point(0, 0);
+            tableLayoutPanel1.Name = "tableLayoutPanel1";
+            tableLayoutPanel1.RowCount = 2;
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 15F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 85F));
+            tableLayoutPanel1.Size = new Size(1018, 586);
+            tableLayoutPanel1.TabIndex = 0;
+            // 
+            // teamsTabControl
+            // 
+            teamsTabControl.Dock = DockStyle.Fill;
+            teamsTabControl.Location = new Point(3, 90);
+            teamsTabControl.Name = "teamsTabControl";
+            teamsTabControl.SelectedIndex = 0;
+            teamsTabControl.Size = new Size(1012, 493);
+            teamsTabControl.TabIndex = 0;
             // 
             // buttonSave
             // 
+            buttonSave.Dock = DockStyle.Left;
             buttonSave.FlatStyle = FlatStyle.Flat;
-            buttonSave.Font = new Font("Segoe UI", 11F);
-            buttonSave.Location = new Point(7, 6);
+            buttonSave.Location = new Point(11, 12);
+            buttonSave.Margin = new Padding(11, 12, 3, 12);
             buttonSave.Name = "buttonSave";
-            buttonSave.Size = new Size(189, 34);
+            buttonSave.Size = new Size(199, 63);
             buttonSave.TabIndex = 1;
             buttonSave.Text = "Save Teams";
             buttonSave.UseVisualStyleBackColor = true;
             buttonSave.Click += buttonSave_Click;
             // 
-            // FormShowTeams
+            // SquadForm
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
-            AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(977, 395);
-            Controls.Add(buttonSave);
-            Controls.Add(flowLayoutPanel1);
+            AutoScaleMode = AutoScaleMode.None;
+            ClientSize = new Size(1018, 586);
+            Controls.Add(tableLayoutPanel1);
+            Font = new System.Drawing.Font("Segoe UI", 10F);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             MaximizeBox = false;
-            Name = "FormShowTeams";
-            Text = "ShowTeams";
+            Name = "SquadForm";
+            Text = "SquadForm2";
+            tableLayoutPanel1.ResumeLayout(false);
             ResumeLayout(false);
         }
 
         #endregion
 
-        private FlowLayoutPanel flowLayoutPanel1;
+        private TableLayoutPanel tableLayoutPanel1;
+        private TabControl teamsTabControl;
         private Button buttonSave;
     }
 }

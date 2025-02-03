@@ -1,26 +1,21 @@
 ﻿using Newtonsoft.Json;
 using SquadsMaster.Models;
+using System.Numerics;
 
 namespace Squadify.Data
 {
     public static class PlayerDataUtil
     {
-        public static List<Player> GetPlayerData()
+        public static IEnumerable<Player>? PlayerData { get; private set; }
+
+        public static IEnumerable<Player>? GetPlayerData(string filePath)
         {
-            var fileTxt = File.ReadAllText(@"Data\Games_Day_Particpants_Data.json");
+            if (!File.Exists(filePath)) return null;
+
+            var fileTxt = File.ReadAllText(filePath);
             var serializer = new JsonSerializer();
-            var jsonPlayers = serializer.Deserialize<PlayerJsonModel[]>(new JsonTextReader(new StringReader(fileTxt)));
-
-            var players = (from player in jsonPlayers
-                           select new Player()
-                           {
-                               Name = player.Name,
-                               Age = player.Age,
-                               Gender = player.Gender,
-                               Skills = player.Skills.Split(',').Select(item => item.Trim()),
-                           }).ToList();
-
-            return players;
+            PlayerData = serializer.Deserialize<IEnumerable<Player>>(new JsonTextReader(new StringReader(fileTxt)));
+            return PlayerData;
         }
     }
 }
