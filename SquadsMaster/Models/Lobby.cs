@@ -1,5 +1,4 @@
-﻿
-namespace SquadsMaster.Models
+﻿namespace SquadsMaster.Models
 {
     public class Lobby
     {
@@ -10,17 +9,32 @@ namespace SquadsMaster.Models
             Players = players;
             SkillCount = [];
         }
-        public List<Team> Distribute(int numberOfTeams, List<string> skills)
+        public List<Team> Distribute(int numberOfTeams, List<string> skills = null)
         {
             //populate lobby skills
-            foreach (var skill in skills)
-                this.SkillCount[skill] = 0;
-            foreach (IPlayer player in Players)
-                foreach (string skill in player.Skills)
-                {
-                    if (this.SkillCount.Keys.Contains(skill))
+            if (skills == null)
+            {
+                foreach (IPlayer player in Players)
+                    foreach (string skill in player.Skills)
+                    {
+                        if (!this.SkillCount.Keys.Contains(skill))
+                            this.SkillCount[skill] = 0;
+
                         this.SkillCount[skill]++;
-                }
+                    }
+            }
+            else
+            {
+                foreach (var skill in skills)
+                    this.SkillCount[skill] = 0;
+                foreach (IPlayer player in Players)
+                    foreach (string skill in player.Skills)
+                    {
+                        if (this.SkillCount.Keys.Contains(skill))
+                            this.SkillCount[skill]++;
+                    }
+            }
+
             //initialize teams with skills
             var teams = new List<Team>(Enumerable.Range(1, numberOfTeams).Select(i => new Team()
             {
@@ -68,7 +82,7 @@ namespace SquadsMaster.Models
 
             //normalizing teams
             //pick a teamA
-            for (int teamAIdx = 0; teamAIdx < teams.Count; teamAIdx++)
+            /*for (int teamAIdx = 0; teamAIdx < teams.Count; teamAIdx++)
             {
                 var teamA = teams[teamAIdx];
                 //pick a skill
@@ -109,7 +123,7 @@ namespace SquadsMaster.Models
                         }
                     }
                 }
-            }
+            }*/
 
             return teams;
         }
@@ -139,7 +153,7 @@ namespace SquadsMaster.Models
         {
             foreach (var skill in playerA.Skills)
                 if (!playerB.Skills.Contains(skill))
-                    if (teamA.SkillCount.ContainsKey(skill) && 
+                    if (teamA.SkillCount.ContainsKey(skill) &&
                         teamA.SkillCount[skill] - 1 < this.SkillCount[skill] / numberOfTeams)
                         return false;
             return true;
