@@ -94,8 +94,8 @@ namespace Squadify.Forms
             textBoxDataFile.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             tableLayoutPanel1.SetColumnSpan(textBoxDataFile, 2);
             textBoxDataFile.Font = new Font("Segoe UI", 9F);
-            textBoxDataFile.Location = new Point(291, 8);
-            textBoxDataFile.Margin = new Padding(3, 8, 3, 3);
+            textBoxDataFile.Location = new Point(291, 12);
+            textBoxDataFile.Margin = new Padding(3, 12, 3, 3);
             textBoxDataFile.Name = "textBoxDataFile";
             textBoxDataFile.ReadOnly = true;
             textBoxDataFile.Size = new Size(282, 27);

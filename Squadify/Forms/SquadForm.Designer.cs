@@ -42,35 +42,34 @@ namespace Squadify.Forms
             // 
             tableLayoutPanel1.ColumnCount = 1;
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 22F));
             tableLayoutPanel1.Controls.Add(teamsTabControl, 0, 1);
             tableLayoutPanel1.Controls.Add(buttonSave, 0, 0);
             tableLayoutPanel1.Dock = DockStyle.Fill;
             tableLayoutPanel1.Location = new Point(0, 0);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 2;
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 15F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 85F));
-            tableLayoutPanel1.Size = new Size(1018, 586);
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 10F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 90F));
+            tableLayoutPanel1.Size = new Size(1069, 594);
             tableLayoutPanel1.TabIndex = 0;
             // 
             // teamsTabControl
             // 
             teamsTabControl.Dock = DockStyle.Fill;
-            teamsTabControl.Location = new Point(3, 90);
+            teamsTabControl.Location = new Point(3, 62);
             teamsTabControl.Name = "teamsTabControl";
             teamsTabControl.SelectedIndex = 0;
-            teamsTabControl.Size = new Size(1012, 493);
+            teamsTabControl.Size = new Size(1063, 529);
             teamsTabControl.TabIndex = 0;
             // 
             // buttonSave
             // 
             buttonSave.Dock = DockStyle.Left;
             buttonSave.FlatStyle = FlatStyle.Flat;
-            buttonSave.Location = new Point(11, 12);
-            buttonSave.Margin = new Padding(11, 12, 3, 12);
+            buttonSave.Location = new Point(12, 8);
+            buttonSave.Margin = new Padding(12, 8, 0, 8);
             buttonSave.Name = "buttonSave";
-            buttonSave.Size = new Size(199, 63);
+            buttonSave.Size = new Size(199, 43);
             buttonSave.TabIndex = 1;
             buttonSave.Text = "Save Teams";
             buttonSave.UseVisualStyleBackColor = true;
@@ -79,7 +78,7 @@ namespace Squadify.Forms
             // SquadForm
             // 
             AutoScaleMode = AutoScaleMode.None;
-            ClientSize = new Size(1018, 586);
+            ClientSize = new Size(1069, 594);
             Controls.Add(tableLayoutPanel1);
             Font = new System.Drawing.Font("Segoe UI", 10F);
             FormBorderStyle = FormBorderStyle.FixedSingle;
