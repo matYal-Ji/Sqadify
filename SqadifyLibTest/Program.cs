@@ -13,7 +13,7 @@ foreach (var player in players!)
         uniqueSkills.Add(skill);
 
 var lobby = new Lobby(players!);
-var teams = lobby.Distribute(5, uniqueSkills.ToList().GetRange(0, 2));
+var teams = lobby.Distribute(5/*, uniqueSkills.ToList().GetRange(0, 2)*/);
 
 //display
 Console.WriteLine($"Total Players: {players.Count()}");

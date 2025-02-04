@@ -13,6 +13,15 @@ namespace Squadify.Data
         public string PhoneNumber { get; set; }
         [JsonProperty("Types of games they can participate in")]
         public string Games { get; set; }
-        public IEnumerable<string> Skills { get => this.Games.Split(',').Select(item => item.Trim()); }
+
+        IEnumerable<string> _skills;
+        public IEnumerable<string> Skills
+        {
+            get
+            {
+                _skills ??= Games.Split(',').Select(item => item.Trim());
+                return _skills;
+            }
+        }
     }
 }

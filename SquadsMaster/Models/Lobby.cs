@@ -99,8 +99,8 @@
                                 teamB.SkillCount[skill] >= this.SkillCount[skill] / numberOfTeams) //have an extra
                             {
                                 //get switchable players
-                                var teamAPlayerIdxList = new List<int>();
-                                var teamBPlayerIdxList = new List<int>();
+                                //var teamAPlayerIdxList = new List<int>();
+                                //var teamBPlayerIdxList = new List<int>();
                                 for (int teamAPlayerIdx = 0; teamAPlayerIdx < teamA.Players.Count; teamAPlayerIdx++)
                                 {
                                     var teamAPlayer = teamA.Players[teamAPlayerIdx];
