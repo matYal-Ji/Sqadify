@@ -78,7 +78,7 @@
 
             //normalizing teams
             //pick a teamA
-            /*for (int teamAIdx = 0; teamAIdx < teams.Count; teamAIdx++)
+            for (int teamAIdx = 0; teamAIdx < teams.Count; teamAIdx++)
             {
                 var teamA = teams[teamAIdx];
                 //pick a skill
@@ -92,11 +92,9 @@
                         {
                             var teamB = teams[teamBIdx];
                             if (teamBIdx != teamAIdx &&
-                                teamB.SkillCount[skill] >= this.SkillCount[skill] / numberOfTeams) //have an extra
+                                teamB.SkillCount[skill] > this.SkillCount[skill] / numberOfTeams) //have an extra
                             {
                                 //get switchable players
-                                //var teamAPlayerIdxList = new List<int>();
-                                //var teamBPlayerIdxList = new List<int>();
                                 for (int teamAPlayerIdx = 0; teamAPlayerIdx < teamA.Players.Count; teamAPlayerIdx++)
                                 {
                                     var teamAPlayer = teamA.Players[teamAPlayerIdx];
@@ -110,16 +108,16 @@
                                                     //switch players
                                                     teamA.Players[teamAPlayerIdx] = teamBPlayer;
                                                     teamB.Players[teamBPlayerIdx] = teamAPlayer;
+                                                    Console.WriteLine($"[{teamA.Name}] {teamAPlayer.Name,-20}<—>\t[{teamB.Name}] {teamBPlayer.Name}");
+                                                    break;
                                                 }
                                         }
                                 }
-
-                                if (teamA.SkillCount[skill] >= this.SkillCount[skill] / numberOfTeams) break;
                             }
                         }
                     }
                 }
-            }*/
+            }
 
             return teams;
         }
