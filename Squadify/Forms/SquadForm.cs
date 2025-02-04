@@ -1,6 +1,7 @@
 ﻿using System.Data;
 using SquadsMaster.Models;
 using Squadify.Utils;
+using Squadify.CustomControls;
 
 namespace Squadify.Forms
 {
@@ -8,48 +9,32 @@ namespace Squadify.Forms
     {
         List<Team> _teams;
 
+        public SquadForm()
+        {
+            InitializeComponent();
+        }
+
         public SquadForm(List<Team> teams)
         {
             InitializeComponent();
             _teams = teams;
-            DisplayTeams(_teams);
         }
 
-        public void DisplayTeams(List<Team> teams)
+        protected override void OnLoad(EventArgs e)
         {
-            foreach (var team in teams)
+            base.OnLoad(e);
+            DisplayTeams();
+        }
+
+        private void DisplayTeams()
+        {
+            if (_teams is null || _teams.Count <= 0) return;
+
+            foreach (Team team in _teams)
             {
-                // Create a new panel for each team
-                Panel teamPanel = new Panel
-                {
-                    Width = 200,
-                    Height = 300,
-                    BorderStyle = BorderStyle.None
-                };
-
-                // Add a label for the team name
-                Label teamLabel = new Label
-                {
-                    Text = team.Name,
-                    Dock = DockStyle.Top,
-                    Font = new Font("Arial", 12, FontStyle.Bold),
-                    TextAlign = ContentAlignment.MiddleCenter
-                };
-
-                // Add a ListBox for team members
-                ListBox memberListBox = new ListBox
-                {
-                    Dock = DockStyle.Fill,
-                    SelectionMode = SelectionMode.None
-                };
-                var players = team.Players.Select(player => player.Name).ToArray();
-                memberListBox.Items.AddRange(players);
-
-                // Add controls to the panel
-                teamPanel.Controls.Add(memberListBox);
-                teamPanel.Controls.Add(teamLabel);
-
-                flowLayoutPanel1.Controls.Add(teamPanel);
+                var tabPage = new TabPage { Text = team.Name };
+                tabPage.Controls.Add(new TeamControl(team) { Dock = DockStyle.Fill });
+                teamsTabControl.TabPages.Add(tabPage);
             }
         }
 

@@ -7,12 +7,33 @@ namespace Squadify.Forms
 {
     public partial class TeamSetupForm : Form
     {
+        string _playerDataFilePath = string.Empty;
+
         public TeamSetupForm()
         {
             InitializeComponent();
+
+            textBoxDataFile.ButtonClick += TextBoxDataFile_ButtonClick;
         }
 
         #region event handlers
+
+        private void TextBoxDataFile_ButtonClick(object? sender, EventArgs e)
+        {
+            var ofd = new OpenFileDialog() { Filter = "JSON file (.json)|", DefaultExt = "json", AddExtension = true };
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                if (Path.GetExtension(ofd.FileName).Equals(".json"))
+                {
+                    _playerDataFilePath = ofd.FileName;
+                    textBoxDataFile.Text = Path.GetFileName(ofd.FileName);
+                }
+                else
+                {
+                    MessageBox.Show(GlobalResources.FormatNotSupportedError);
+                }
+            }
+        }
 
         private void buttonAutoFill_Click(object sender, EventArgs e)
         {
@@ -44,24 +65,24 @@ namespace Squadify.Forms
             textBoxGameInput.Clear();
         }
 
+        private void textBoxTeams_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar);
+        }
+
         private void buttonGenerate_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(textBoxTeams.Text)) return;
             if (!int.TryParse(textBoxTeams.Text, out var teamCount)) return;
 
             #region sample data
-            var players = PlayerDataUtil.GetPlayerData();
+            var players = PlayerDataUtil.GetPlayerData(_playerDataFilePath);
             var lobby = new Lobby(players);
             var teams = lobby.Distribute(teamCount);
             #endregion
 
             using var frm = new SquadForm(teams) { StartPosition = FormStartPosition.CenterParent };
             frm.ShowDialog(this);
-        }
-
-        private void textBoxTeams_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar);
         }
 
         #endregion
