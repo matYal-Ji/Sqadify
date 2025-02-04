@@ -7,10 +7,16 @@ var fileTxt = File.ReadAllText("Games_Day_Particpants_Data.json");
 var serializer = new JsonSerializer();
 var players = serializer.Deserialize<IEnumerable<Player>>(new JsonTextReader(new StringReader(fileTxt)));
 
+var uniqueSkills = new HashSet<string>();
+foreach (var player in players!)
+    foreach (var skill in player.Skills)
+        uniqueSkills.Add(skill);
+
 var lobby = new Lobby(players!);
-var teams = lobby.Distribute(5);
+var teams = lobby.Distribute(5, uniqueSkills.ToList().GetRange(0, 2));
 
 //display
+Console.WriteLine($"Total Players: {players.Count()}");
 foreach (var team in teams)
 {
     Console.WriteLine();

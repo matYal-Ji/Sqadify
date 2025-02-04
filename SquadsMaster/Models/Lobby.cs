@@ -10,14 +10,16 @@ namespace SquadsMaster.Models
             Players = players;
             SkillCount = [];
         }
-        public List<Team> Distribute(int numberOfTeams/*, List<string> skills*/)
+        public List<Team> Distribute(int numberOfTeams, List<string> skills)
         {
             //populate lobby skills
+            foreach (var skill in skills)
+                this.SkillCount[skill] = 0;
             foreach (IPlayer player in Players)
                 foreach (string skill in player.Skills)
                 {
-                    if (!SkillCount.TryGetValue(skill, out int value)) this.SkillCount[skill] = 1;
-                    else this.SkillCount[skill] = ++value;
+                    if (this.SkillCount.Keys.Contains(skill))
+                        this.SkillCount[skill]++;
                 }
             //initialize teams with skills
             var teams = new List<Team>(Enumerable.Range(1, numberOfTeams).Select(i => new Team()
@@ -137,7 +139,8 @@ namespace SquadsMaster.Models
         {
             foreach (var skill in playerA.Skills)
                 if (!playerB.Skills.Contains(skill))
-                    if (teamA.SkillCount[skill] - 1 < this.SkillCount[skill] / numberOfTeams)
+                    if (teamA.SkillCount.ContainsKey(skill) && 
+                        teamA.SkillCount[skill] - 1 < this.SkillCount[skill] / numberOfTeams)
                         return false;
             return true;
         }
@@ -145,7 +148,8 @@ namespace SquadsMaster.Models
         {
             team.Players.Add(player);
             foreach (var skill in player.Skills)
-                team.SkillCount[skill]++;
+                if (team.SkillCount.ContainsKey(skill))
+                    team.SkillCount[skill]++;
         }
     }
 }
