@@ -78,7 +78,12 @@ namespace Squadify.Forms
             #region sample data
             var players = PlayerDataUtil.GetPlayerData(_playerDataFilePath);
             var lobby = new Lobby(players);
-            var teams = lobby.Distribute(teamCount);
+
+            List<Team> teams;
+            if (listBoxGames.DataSource is BindingList<string> source)
+                teams = lobby.Distribute(teamCount, source.ToList());
+            else
+                teams = lobby.Distribute(teamCount);
             #endregion
 
             using var frm = new SquadForm(teams) { StartPosition = FormStartPosition.CenterParent };
