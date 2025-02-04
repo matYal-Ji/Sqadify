@@ -9,31 +9,26 @@
             Players = players;
             SkillCount = [];
         }
-        public List<Team> Distribute(int numberOfTeams, List<string> skills = null)
+        public List<Team> Distribute(int numberOfTeams, List<string> skills = null!)
         {
-            //populate lobby skills
+            //handle null skills
             if (skills == null)
             {
-                foreach (IPlayer player in Players)
-                    foreach (string skill in player.Skills)
-                    {
-                        if (!this.SkillCount.Keys.Contains(skill))
-                            this.SkillCount[skill] = 0;
-
+                var uniqueSkills = new HashSet<string>();
+                foreach (var player in Players)
+                    foreach (var skill in player.Skills)
+                        uniqueSkills.Add(skill);
+                skills = [.. uniqueSkills];
+            }
+            //populate lobby skills
+            foreach (var skill in skills)
+                this.SkillCount[skill] = 0;
+            foreach (var player in Players)
+                foreach (var skill in player.Skills)
+                {
+                    if (this.SkillCount.Keys.Contains(skill))
                         this.SkillCount[skill]++;
-                    }
-            }
-            else
-            {
-                foreach (var skill in skills)
-                    this.SkillCount[skill] = 0;
-                foreach (IPlayer player in Players)
-                    foreach (string skill in player.Skills)
-                    {
-                        if (this.SkillCount.Keys.Contains(skill))
-                            this.SkillCount[skill]++;
-                    }
-            }
+                }
 
             //initialize teams with skills
             var teams = new List<Team>(Enumerable.Range(1, numberOfTeams).Select(i => new Team()
@@ -43,19 +38,20 @@
             }));
 
             //initial distribution
-            //pick a teamAPlayer
+            //pick a player
             foreach (IPlayer player in Players)
             {
-                //pick a teamA
+                //pick a team
                 bool playerAdded = false;
                 foreach (Team team in teams)
                 {
-                    //check if teamAPlayer's skills does not overflow teamA's required skill
+                    if (team.Players.Count >= this.Players.Count() / numberOfTeams) 
+                        break;
+                    //check if player's skills does not overflow team's required skill
                     bool overflows = false;
                     foreach (string skill in this.SkillCount.Keys)
                     {
-                        if (team.SkillCount[skill] > this.SkillCount[skill] / numberOfTeams ||
-                            team.Players.Count > this.Players.Count() / numberOfTeams)
+                        if (team.SkillCount[skill] > this.SkillCount[skill] / numberOfTeams)
                         {
                             overflows = true;
                             break;
@@ -68,7 +64,7 @@
                         break;
                     }
                 }
-                //add the teamAPlayer in a teamA with least number of players
+                //add the player in a team with least number of players
                 if (!playerAdded)
                 {
                     var teamWithLeastPlayers = teams[0];

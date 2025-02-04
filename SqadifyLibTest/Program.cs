@@ -17,18 +17,19 @@ var teams = lobby.Distribute(5/*, uniqueSkills.ToList().GetRange(0, 2)*/);
 
 //display
 Console.WriteLine($"Total Players: {players.Count()}");
+Console.WriteLine($"Total Teams: {teams.Count}");
+Console.Write("\t\t\t");
+foreach (var skill in teams[0].SkillCount.Keys)
+    Console.Write($"{skill,15}");
 foreach (var team in teams)
 {
-    Console.WriteLine();
-    Console.WriteLine($"team.Name: {team.Name}");
-    Console.WriteLine($"team.Players.Count: {team.Players.Count}");
-    Console.WriteLine();
-    foreach (var skill in team.SkillCount)
+    Console.Write($"\n\t{team.Name}[{team.Players.Count}]:\t");
+    foreach (var skillCount in team.SkillCount.Values)
     {
-        Console.WriteLine($"{skill.Key}: {skill.Value}");
+        Console.Write($"{skillCount,15}");
     }
-    Console.WriteLine();
-    foreach(var player in team.Players)
+    Console.WriteLine("");
+    foreach (var player in team.Players)
     {
         //Console.WriteLine(player.Name);
     }
