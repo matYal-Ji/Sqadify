@@ -45,7 +45,7 @@
                 bool playerAdded = false;
                 foreach (Team team in teams)
                 {
-                    if (team.Players.Count >= this.Players.Count() / numberOfTeams) 
+                    if (team.Players.Count >= this.Players.Count() / numberOfTeams)
                         break;
                     //check if player's skills does not overflow team's required skill
                     bool overflows = false;
@@ -78,39 +78,49 @@
 
             //normalizing teams
             //pick a teamA
-            for (int teamAIdx = 0; teamAIdx < teams.Count; teamAIdx++)
+            for (int teamAIdx = 0; teamAIdx < teams.Count; teamAIdx++)//temaA
             {
                 var teamA = teams[teamAIdx];
                 //pick a skill
-                foreach (var skill in teamA.SkillCount.Keys)
+                foreach (var skill in teamA.SkillCount.Keys)//teamA skills
                 {
                     //if skill is less than requirement
                     if (teamA.SkillCount[skill] < this.SkillCount[skill] / numberOfTeams)
                     {
                         //check for the skill in other teams
-                        for (int teamBIdx = 0; teamBIdx < teams.Count; teamBIdx++)
+                        for (int teamBIdx = 0; teamBIdx < teams.Count; teamBIdx++)//teamB
                         {
                             var teamB = teams[teamBIdx];
                             if (teamBIdx != teamAIdx &&
                                 teamB.SkillCount[skill] > this.SkillCount[skill] / numberOfTeams) //have an extra
                             {
                                 //get switchable players
-                                for (int teamAPlayerIdx = 0; teamAPlayerIdx < teamA.Players.Count; teamAPlayerIdx++)
+                                for (int teamAPlayerIdx = 0; teamAPlayerIdx < teamA.Players.Count; teamAPlayerIdx++)//teamA player
                                 {
                                     var teamAPlayer = teamA.Players[teamAPlayerIdx];
-                                    if (teamAPlayer.Skills.Contains(skill))
-                                        for (int teamBPlayerIdx = 0; teamBPlayerIdx < teamB.Players.Count; teamBPlayerIdx++)
+                                    //get a player from teamA who does not posses 'skill'
+                                    if (!teamAPlayer.Skills.Contains(skill))
+                                        for (int teamBPlayerIdx = 0; teamBPlayerIdx < teamB.Players.Count; teamBPlayerIdx++)//teamB player
                                         {
                                             var teamBPlayer = teamB.Players[teamBPlayerIdx];
-                                            if (teamBPlayer.Skills.Contains(skill))
-                                                if (CanSwitch(teamA, teamAPlayer, teamB, teamBPlayer, numberOfTeams))
-                                                {
-                                                    //switch players
-                                                    teamA.Players[teamAPlayerIdx] = teamBPlayer;
-                                                    teamB.Players[teamBPlayerIdx] = teamAPlayer;
-                                                    Console.WriteLine($"[{teamA.Name}] {teamAPlayer.Name,-20}<—>\t[{teamB.Name}] {teamBPlayer.Name}");
-                                                    break;
-                                                }
+                                            //get a player from teamB who posses 'skill'
+                                            if (teamBPlayer.Skills.Contains(skill) &&
+                                                CanSwitch(teamA, teamAPlayer, teamB, teamBPlayer, skill, numberOfTeams))
+                                            {
+                                                //switch players
+                                                foreach(var playerSkill in teamAPlayer.Skills)
+                                                    teamA.SkillCount[skill]--;
+                                                foreach(var playerSkill in teamBPlayer.Skills)
+                                                    teamB.SkillCount[skill]--;
+                                                foreach (var playerSkill in teamAPlayer.Skills)
+                                                    teamB.SkillCount[skill]++;
+                                                foreach (var playerSkill in teamBPlayer.Skills)
+                                                    teamA.SkillCount[skill]++;
+                                                teamA.Players[teamAPlayerIdx] = teamBPlayer;
+                                                teamB.Players[teamBPlayerIdx] = teamAPlayer;
+                                                //Console.WriteLine($"[{teamA.Name}] {teamAPlayer.Name,-20}<—>\t[{teamB.Name}] {teamBPlayer.Name}");
+                                                break;
+                                            }
                                         }
                                 }
                             }
@@ -130,7 +140,7 @@
         /// <param name="teamB">teamA with playerB</param>
         /// <param name="playerB">playerB</param>
         /// <returns></returns>
-        bool CanSwitch(Team teamA, IPlayer playerA, Team teamB, IPlayer playerB, int numberOfTeams)
+        bool CanSwitch(Team teamA, IPlayer playerA, Team teamB, IPlayer playerB, string skill, int numberOfTeams)
         {
             return CanRemove(teamA, playerA, playerB, numberOfTeams) &&
                 CanRemove(teamB, playerB, playerA, numberOfTeams);
