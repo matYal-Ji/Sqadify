@@ -105,12 +105,12 @@
                                             var teamBPlayer = teamB.Players[teamBPlayerIdx];
                                             //get a player from teamB who posses 'skill'
                                             if (teamBPlayer.Skills.Contains(skill) &&
-                                                CanSwitch(teamA, teamAPlayer, teamB, teamBPlayer, skill, numberOfTeams))
+                                                CanSwitch(teamA, teamAPlayer, teamB, teamBPlayer, numberOfTeams))
                                             {
                                                 //switch players
-                                                foreach(var playerSkill in teamAPlayer.Skills)
+                                                foreach (var playerSkill in teamAPlayer.Skills)
                                                     teamA.SkillCount[skill]--;
-                                                foreach(var playerSkill in teamBPlayer.Skills)
+                                                foreach (var playerSkill in teamBPlayer.Skills)
                                                     teamB.SkillCount[skill]--;
                                                 foreach (var playerSkill in teamAPlayer.Skills)
                                                     teamB.SkillCount[skill]++;
@@ -140,7 +140,7 @@
         /// <param name="teamB">teamA with playerB</param>
         /// <param name="playerB">playerB</param>
         /// <returns></returns>
-        bool CanSwitch(Team teamA, IPlayer playerA, Team teamB, IPlayer playerB, string skill, int numberOfTeams)
+        bool CanSwitch(Team teamA, IPlayer playerA, Team teamB, IPlayer playerB, int numberOfTeams)
         {
             return CanRemove(teamA, playerA, playerB, numberOfTeams) &&
                 CanRemove(teamB, playerB, playerA, numberOfTeams);
