@@ -98,7 +98,7 @@ namespace Squadify.Forms
             textBoxDataFile.Margin = new Padding(3, 12, 3, 3);
             textBoxDataFile.Name = "textBoxDataFile";
             textBoxDataFile.ReadOnly = true;
-            textBoxDataFile.Size = new Size(282, 27);
+            textBoxDataFile.Size = new Size(282, 23);
             textBoxDataFile.TabIndex = 10;
             // 
             // labelLoadData
@@ -134,7 +134,7 @@ namespace Squadify.Forms
             textBoxTeams.Location = new Point(291, 67);
             textBoxTeams.Margin = new Padding(3, 15, 3, 3);
             textBoxTeams.Name = "textBoxTeams";
-            textBoxTeams.Size = new Size(282, 30);
+            textBoxTeams.Size = new Size(282, 25);
             textBoxTeams.TabIndex = 1;
             textBoxTeams.KeyPress += textBoxTeams_KeyPress;
             // 
@@ -251,7 +251,7 @@ namespace Squadify.Forms
             listBoxGames.Dock = DockStyle.Fill;
             listBoxGames.Font = new Font("Segoe UI", 11F);
             listBoxGames.FormattingEnabled = true;
-            listBoxGames.ItemHeight = 25;
+            listBoxGames.ItemHeight = 20;
             listBoxGames.Location = new Point(17, 267);
             listBoxGames.Margin = new Padding(17, 3, 3, 3);
             listBoxGames.Name = "listBoxGames";
@@ -289,7 +289,7 @@ namespace Squadify.Forms
             // 
             // TeamSetupForm
             // 
-            AutoScaleDimensions = new SizeF(9F, 23F);
+            AutoScaleDimensions = new SizeF(7F, 17F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(596, 590);
             Controls.Add(tableLayoutPanel1);

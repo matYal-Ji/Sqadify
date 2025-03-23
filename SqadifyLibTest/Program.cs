@@ -2,13 +2,16 @@
 using SquadifyLibTest;
 using SquadsMaster.Models;
 
-var fileTxt = File.ReadAllText("Games_Day_Particpants_Data.json");
+var fileTxt = File.ReadAllText("DataSet/Games_Day_Particpants_Data.json");
+//var fileTxt = File.ReadAllText("DataSet/Games_Day_Particpants_Data_1000.json");
+//var fileTxt = File.ReadAllText("DataSet/Games_Day_Particpants_Data_10_000.json");
+//var fileTxt = File.ReadAllText("DataSet/Edge_Case_Games_Participants_Data.json");
 
 var serializer = new JsonSerializer();
 var players = serializer.Deserialize<IEnumerable<Player>>(new JsonTextReader(new StringReader(fileTxt)))!;
 
 var lobby = new Lobby(players);
-var teams = lobby.Distribute(4, ["Table Tennis", "Badminton", "Video Game", "Tennis", "Puzzle Making"]).ToList();
+var teams = lobby.Distribute(4, ["Table Tennis", "Badminton", "Video Game", "Tennis", "Puzzle Making"]);
 
 //display results on console
 Console.WriteLine($"Total Players: {players.Count()}");

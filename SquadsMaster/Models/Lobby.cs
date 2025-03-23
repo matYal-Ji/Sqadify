@@ -24,10 +24,14 @@
             }));
 
             //initial distribution
+            var before = DateTime.Now;
             InitialDistribution();
+            Console.WriteLine($"Initial distribution took: {(DateTime.Now - before).TotalMilliseconds}ms");
 
             //normalizing _teams
+            before = DateTime.Now;
             NormalizeDistribution();
+            Console.WriteLine($"Normalizing the teams took: {(DateTime.Now - before).TotalMilliseconds}ms");
 
             return _teams;
         }
@@ -180,13 +184,3 @@
         }
     }
 }
-
-/*
- * Design changes to be implemented:
- * 
- * 1. better skill object for player, lobby and team [skill have many functions—so it is better to have a class]
- * 2. base class for lobby and team [alot of APIs are same]
- * 3. dynamic skill count (so we do not need to specify the count / class will be having player's info to return skill count) [alternative to LobbySkills[skill]++--]
- * 4. required number of skill in a team (calculate it dynamically and provide an API to user to specify) [alternative to this.LobbySkills[skill] / numberOfTeams]
- * 5. fragment 'for' loops
- */

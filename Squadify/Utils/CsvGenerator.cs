@@ -11,7 +11,7 @@ namespace Squadify.Utils
             builder.AppendLine(string.Join(",", teams.Select(t => t.Name)));
 
             // Get the maximum number of players in any team to ensure all rows are covered
-            int maxPlayers = teams.Max(t => t.Players.Count);
+            int maxPlayers = teams.Max(t => t.Players.Count());
 
             for (int i = 0; i < maxPlayers; i++)
             {
@@ -19,9 +19,9 @@ namespace Squadify.Utils
 
                 foreach (var team in teams)
                 {
-                    if (i < team.Players.Count)
+                    if (i < team.Players.Count())
                     {
-                        row.Add(team.Players[i].Name);
+                        row.Add(team.Players.ToList()[i].Name);
                     }
                     else
                     {

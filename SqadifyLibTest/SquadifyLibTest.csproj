@@ -17,7 +17,16 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Games_Day_Particpants_Data.json">
+    <None Update="DataSet\Edge_Case_Games_Participants_Data.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="DataSet\Games_Day_Particpants_Data.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="DataSet\Games_Day_Particpants_Data_1000.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="DataSet\Games_Day_Particpants_Data_10_000.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
