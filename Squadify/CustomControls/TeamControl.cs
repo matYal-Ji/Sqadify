@@ -78,8 +78,8 @@ namespace Squadify.CustomControls
             chartTeamSkills.Titles.Add(chartTitle);
 
             // Convert the dictionary keys and values to lists (or arrays)
-            var skillNames = new List<string>(_team.SkillCount.Keys);
-            var skillCounts = new List<int>(_team.SkillCount.Values);
+            var skillNames = new List<string>(_team.LobbySkills.Keys);
+            var skillCounts = new List<int>(_team.LobbySkills.Values);
             series.Points.Clear();
             series.Points.DataBindXY(skillNames, skillCounts);
 

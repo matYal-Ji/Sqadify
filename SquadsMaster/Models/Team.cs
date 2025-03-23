@@ -1,15 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SquadsMaster.Models
+﻿namespace SquadsMaster.Models
 {
-    public class Team
+    public class Team : LobbyBase
     {
-        public string Name { get; set; }
-        public List<IPlayer> Players { get; set; } = [];
-        public Dictionary<string, int> SkillCount { get; set; } = [];
+        public Team() : base([]) { }
+        public Team(IEnumerable<IPlayer> players) : base(players) { }
     }
 }
