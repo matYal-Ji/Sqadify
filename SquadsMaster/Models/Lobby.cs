@@ -1,4 +1,7 @@
-﻿namespace SquadsMaster.Models
+﻿using SquadsMaster.Enum;
+using System.Diagnostics;
+
+namespace SquadsMaster.Models
 {
     public class Lobby : LobbyBase
     {
@@ -7,6 +10,13 @@
         {
             _teams = [];
         }
+
+        /// <summary>
+        /// Distributes players in the lobby based on their skillset among the given number of teams
+        /// </summary>
+        /// <param name="numberOfTeams">number of teams required</param>
+        /// <param name="skills">list of skills used for distribution</param>
+        /// <returns></returns>
         public List<Team> Distribute(int numberOfTeams, List<string> skills = null!)
         {
             //handle 0 or negative number of teams
@@ -26,12 +36,12 @@
             //initial distribution
             var before = DateTime.Now;
             InitialDistribution();
-            Console.WriteLine($"Initial distribution took: {(DateTime.Now - before).TotalMilliseconds}ms");
+            Debug.WriteLine($"Initial distribution took: {(DateTime.Now - before).TotalMilliseconds}ms");
 
             //normalizing _teams
             before = DateTime.Now;
             NormalizeDistribution();
-            Console.WriteLine($"Normalizing the teams took: {(DateTime.Now - before).TotalMilliseconds}ms");
+            Debug.WriteLine($"Normalizing the teams took: {(DateTime.Now - before).TotalMilliseconds}ms");
 
             return _teams;
         }
@@ -54,7 +64,7 @@
                     bool overflows = false;
                     foreach (string skill in this.LobbySkills.Skills)
                     {
-                        if (team.LobbySkills.Skills.Contains(skill) && 
+                        if (team.LobbySkills.Skills.Contains(skill) &&
                             team.LobbySkills[skill] > PlayersRequired(this, skill))
                         {
                             overflows = true;

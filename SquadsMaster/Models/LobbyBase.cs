@@ -40,7 +40,11 @@
             Players = players;
             RemoveSkills(player);
         }
-
+        /// <summary>
+        /// replaces player in the lobby updating lobby's skill set
+        /// </summary>
+        /// <param name="oldPlayer"></param>
+        /// <param name="newPlayer"></param>
         public void ReplacePlayer(IPlayer oldPlayer, IPlayer newPlayer)
         {
             var players = Players.ToList();
@@ -59,7 +63,6 @@
                     LobbySkills.Add(skill, 1);
             }
         }
-
         void RemoveSkills(IPlayer player)
         {
             foreach (var skill in player.Skills)
