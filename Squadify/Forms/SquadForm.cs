@@ -2,6 +2,8 @@
 using SquadsMaster.Models;
 using Squadify.Utils;
 using Squadify.CustomControls;
+using SquadifyLibTest;
+using SquadsMaster.Enum;
 
 namespace Squadify.Forms
 {
@@ -47,6 +49,12 @@ namespace Squadify.Forms
                 var csvContent = CsvGenerator.SaveTeamsToCsv(_teams);
                 File.WriteAllText(saveFileDialog.FileName, csvContent);
             }
+        }
+
+        private void buttonSchedule_Click(object sender, EventArgs e)
+        {
+            var games = Scheduler.GenerateSchedule(_teams, roundRobin.Checked ? ScheduleType.RoundRobin : ScheduleType.Elimination);
+            new EventScheduleForm(_teams, games).ShowDialog();
         }
     }
 }

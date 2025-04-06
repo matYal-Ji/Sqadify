@@ -12,6 +12,7 @@
         public LobbyBase(IEnumerable<IPlayer> players)
         {
             Name = string.Empty;
+            players ??= [];
             Players = [];
             LobbySkills = [];
             foreach(var player in players)

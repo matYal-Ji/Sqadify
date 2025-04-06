@@ -1,7 +1,6 @@
 ﻿using Newtonsoft.Json;
 using SquadifyLibTest;
 using SquadsMaster.Models;
-using System.Net.WebSockets;
 
 //var fileTxt = File.ReadAllText("DataSet/Games_Day_Particpants_Data.json");
 var fileTxt = File.ReadAllText("DataSet/Games_Day_Particpants_Data_1000.json");
