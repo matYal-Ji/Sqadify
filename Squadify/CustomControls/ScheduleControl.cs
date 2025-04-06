@@ -14,7 +14,7 @@ namespace Squadify.CustomControls
             var parentHeight = 0;
             foreach (var game in games)
             {
-                var card = new ScheduleCard(game.Teams[0], game.Teams[1])
+                var card = new ScheduleCard(game)
                 {
                     Dock = DockStyle.Top
                 };

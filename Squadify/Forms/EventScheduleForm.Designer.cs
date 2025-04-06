@@ -50,7 +50,7 @@
             tabControl1.Location = new Point(0, 0);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
-            tabControl1.Size = new Size(800, 450);
+            tabControl1.Size = new Size(800, 510);
             tabControl1.TabIndex = 0;
             // 
             // _allTabPage
@@ -61,7 +61,7 @@
             _allTabPage.Location = new Point(4, 24);
             _allTabPage.Name = "_allTabPage";
             _allTabPage.Padding = new Padding(3);
-            _allTabPage.Size = new Size(792, 422);
+            _allTabPage.Size = new Size(792, 482);
             _allTabPage.TabIndex = 0;
             _allTabPage.Text = "All";
             _allTabPage.UseVisualStyleBackColor = true;
@@ -124,8 +124,9 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(800, 510);
             Controls.Add(tabControl1);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
             Name = "EventScheduleForm";
             Text = "Event Schedule";
             tabControl1.ResumeLayout(false);

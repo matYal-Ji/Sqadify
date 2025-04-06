@@ -39,6 +39,9 @@ namespace Squadify.Forms
             //_standingsGrid.Columns["Name"].Visible = false;
             _standingsGrid.Columns["Name"].HeaderText = "";
             _standingsGroupBox.Height = gridHeight;
+            _standingsGrid.RowHeadersVisible = false;
+            foreach (DataGridViewColumn column in _standingsGrid.Columns)
+                column.SortMode = DataGridViewColumnSortMode.NotSortable;
 
             //schedule
             var scheduleControl = new ScheduleControl(games) { Dock = DockStyle.Fill };

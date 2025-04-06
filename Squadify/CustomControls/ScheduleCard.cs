@@ -1,6 +1,4 @@
 ﻿using SquadsMaster.Models;
-using System.ComponentModel;
-using System.Drawing.Drawing2D;
 
 namespace Squadify.CustomControls
 {
@@ -9,20 +7,55 @@ namespace Squadify.CustomControls
         public ScheduleCard()
         {
             InitializeComponent();
+            this.BorderStyle = BorderStyle.FixedSingle;
 
             //Tranlucent BG
-            SetStyle(ControlStyles.SupportsTransparentBackColor, true);
+            /*SetStyle(ControlStyles.SupportsTransparentBackColor, true);
             SetStyle(ControlStyles.Opaque, true);
-            this.BackColor = Color.Transparent;
+            this.BackColor = Color.Transparent;*/
         }
 
-        public ScheduleCard(Team team1, Team team2) : this()
+        public ScheduleCard(Game game) : this()
         {
+            var team1 = game.Teams[0];
+            var team2 = game.Teams[1];
             //team names
-            _team1FlowLayoutPanel.Controls.Add(new Label() { Text = team1.Name, Margin = new Padding(0, 5, 0, 0) });
-            _team2FlowLayoutPanel.Controls.Add(new Label() { Text = team2.Name, Margin = new Padding(0, 5, 0, 0) });
+            _team1FlowLayoutPanel.Controls.Add(GetLabel(team1.Name));
+            _team2FlowLayoutPanel.Controls.Add(GetLabel(team2.Name));
+            //scores
+            _team1FlowLayoutPanel.Controls.AddRange(team1.Score.Select(item => GetLabel(item.Value.ToString())).ToArray());
+            _team2FlowLayoutPanel.Controls.AddRange(team2.Score.Select(item => GetLabel(item.Value.ToString())).ToArray());
+            //misc
+            var lbls = _miscFlowLayoutPanel.Controls.Cast<Control>().ToArray();
+            _miscFlowLayoutPanel.Controls.Clear();
+            if(game.Round != -1)
+                _miscFlowLayoutPanel.Controls.Add(GetLabel($"Round {game.Round}"));
+            _miscFlowLayoutPanel.Controls.Add(GetLabel(game.DateTime.ToString()));
+            _miscFlowLayoutPanel.Controls.AddRange(lbls);   
+        }
+        
+        Label GetLabel(string text)
+        {
+            return new Label()
+            {
+                Text = text,
+                Margin = new Padding(0, 5, 0, 0)
+            };
         }
 
+        protected override void OnSizeChanged(EventArgs e)
+        {
+            base.OnSizeChanged(e);
+            //setting widths
+            if (_team1FlowLayoutPanel.Controls.Count == 0 || _team2FlowLayoutPanel.Controls.Count == 0) return;
+            _team1FlowLayoutPanel.Controls.Cast<Label>().ToList().ForEach(lbl => lbl.Width = this.Width / _team1FlowLayoutPanel.Controls.Count - 1);
+            _team2FlowLayoutPanel.Controls.Cast<Label>().ToList().ForEach(lbl => lbl.Width = this.Width / _team2FlowLayoutPanel.Controls.Count - 1);
+            _team1FlowLayoutPanel.Controls.Cast<Label>().Last().Width -= 3;
+            _team2FlowLayoutPanel.Controls.Cast<Label>().Last().Width -= 3;
+        }
+
+        ///rounded corner creating performance issues
+        /*
         #region "Rounded Corners"
         private int _radius = 20;
         [DefaultValue(20)]
@@ -186,5 +219,6 @@ namespace Squadify.CustomControls
             base.OnParentBackColorChanged(e);
         }
         #endregion
+        */
     }
 }

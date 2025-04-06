@@ -31,11 +31,12 @@
             tableLayoutPanel1 = new TableLayoutPanel();
             _team1FlowLayoutPanel = new FlowLayoutPanel();
             _team2FlowLayoutPanel = new FlowLayoutPanel();
-            flowLayoutPanel3 = new FlowLayoutPanel();
+            _miscFlowLayoutPanel = new FlowLayoutPanel();
             _scoreEdit = new Button();
             _noteEdit = new Button();
+            _dateEdit = new Button();
             tableLayoutPanel1.SuspendLayout();
-            flowLayoutPanel3.SuspendLayout();
+            _miscFlowLayoutPanel.SuspendLayout();
             SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -44,7 +45,7 @@
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
             tableLayoutPanel1.Controls.Add(_team1FlowLayoutPanel, 0, 0);
             tableLayoutPanel1.Controls.Add(_team2FlowLayoutPanel, 0, 1);
-            tableLayoutPanel1.Controls.Add(flowLayoutPanel3, 0, 2);
+            tableLayoutPanel1.Controls.Add(_miscFlowLayoutPanel, 0, 2);
             tableLayoutPanel1.Dock = DockStyle.Fill;
             tableLayoutPanel1.Location = new Point(0, 0);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -71,19 +72,20 @@
             _team2FlowLayoutPanel.Size = new Size(910, 24);
             _team2FlowLayoutPanel.TabIndex = 1;
             // 
-            // flowLayoutPanel3
+            // _miscFlowLayoutPanel
             // 
-            flowLayoutPanel3.Controls.Add(_scoreEdit);
-            flowLayoutPanel3.Controls.Add(_noteEdit);
-            flowLayoutPanel3.Dock = DockStyle.Fill;
-            flowLayoutPanel3.Location = new Point(3, 63);
-            flowLayoutPanel3.Name = "flowLayoutPanel3";
-            flowLayoutPanel3.Size = new Size(910, 24);
-            flowLayoutPanel3.TabIndex = 2;
+            _miscFlowLayoutPanel.Controls.Add(_dateEdit);
+            _miscFlowLayoutPanel.Controls.Add(_scoreEdit);
+            _miscFlowLayoutPanel.Controls.Add(_noteEdit);
+            _miscFlowLayoutPanel.Dock = DockStyle.Fill;
+            _miscFlowLayoutPanel.Location = new Point(3, 63);
+            _miscFlowLayoutPanel.Name = "_miscFlowLayoutPanel";
+            _miscFlowLayoutPanel.Size = new Size(910, 24);
+            _miscFlowLayoutPanel.TabIndex = 2;
             // 
             // _scoreEdit
             // 
-            _scoreEdit.Location = new Point(5, 0);
+            _scoreEdit.Location = new Point(85, 0);
             _scoreEdit.Margin = new Padding(5, 0, 0, 0);
             _scoreEdit.Name = "_scoreEdit";
             _scoreEdit.Size = new Size(75, 23);
@@ -93,13 +95,23 @@
             // 
             // _noteEdit
             // 
-            _noteEdit.Location = new Point(85, 0);
+            _noteEdit.Location = new Point(165, 0);
             _noteEdit.Margin = new Padding(5, 0, 0, 0);
             _noteEdit.Name = "_noteEdit";
             _noteEdit.Size = new Size(75, 23);
             _noteEdit.TabIndex = 1;
             _noteEdit.Text = "Note";
             _noteEdit.UseVisualStyleBackColor = true;
+            // 
+            // _dateEdit
+            // 
+            _dateEdit.Location = new Point(5, 0);
+            _dateEdit.Margin = new Padding(5, 0, 0, 0);
+            _dateEdit.Name = "_dateEdit";
+            _dateEdit.Size = new Size(75, 23);
+            _dateEdit.TabIndex = 2;
+            _dateEdit.Text = "Date";
+            _dateEdit.UseVisualStyleBackColor = true;
             // 
             // ScheduleCard
             // 
@@ -110,7 +122,7 @@
             Name = "ScheduleCard";
             Size = new Size(916, 90);
             tableLayoutPanel1.ResumeLayout(false);
-            flowLayoutPanel3.ResumeLayout(false);
+            _miscFlowLayoutPanel.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -119,8 +131,9 @@
         private TableLayoutPanel tableLayoutPanel1;
         private FlowLayoutPanel _team1FlowLayoutPanel;
         private FlowLayoutPanel _team2FlowLayoutPanel;
-        private FlowLayoutPanel flowLayoutPanel3;
+        private FlowLayoutPanel _miscFlowLayoutPanel;
         private Button _scoreEdit;
         private Button _noteEdit;
+        private Button _dateEdit;
     }
 }
